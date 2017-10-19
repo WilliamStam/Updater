@@ -2,7 +2,7 @@
 
 NAMESPACE update\actors;
 
-class git extends \update\_ implements actorsInterface {
+class git extends \update\updater implements actorsInterface {
 
 	private static $instance;
 	function __construct(){
@@ -25,32 +25,34 @@ class git extends \update\_ implements actorsInterface {
 		);
 	}
 	function start(){
+		test($this->cfg);
 		if (isset($this->cfg['git'])){
 
-			$this->output(H1, "Files");
+			$this->_output($this->_sql, "Files");
+
 
 
 
 			$this->self_update();
 
 
-			$this->output(H4,"Project");
-			$this->output(LOG,"CHECKING GIT",$this->_exec('git --version'));
+			$this->_output($this->H3,"Project");
+			$this->_output($this->DONE,"CHECKING GIT",$this->_exec('git --version'));
 
 
-				$this->output(LOG,"INIT",$this->_exec('git init',$this->cfg_folder));
-				$this->output(LOG,"STASH",$this->_exec('git reset --hard HEAD',$this->cfg_folder));
+				$this->_output($this->DONE,"INIT",$this->_exec('git init',$this->cfg_folder));
+				$this->_output($this->DONE,"STASH",$this->_exec('git reset --hard HEAD',$this->cfg_folder));
 
 			if ($this->cfg['git']['username']&&$this->cfg['git']['password']){
-				$this->output(LOG,"UPDATING",$this->_exec('git pull https://'.$this->cfg['git']['username'] .':'.$this->cfg['git']['password'] .'@'.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
+				$this->_output($this->LOG,"UPDATING",$this->_exec('git pull https://'.$this->cfg['git']['username'] .':'.$this->cfg['git']['password'] .'@'.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			} else {
-				$this->output(LOG,"UPDATING",$this->_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
+				$this->_output($this->DONE,"UPDATING",$this->_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			}
 
 
 
 
-			$this->output(DONE,"Success");
+			$this->_output($this->H4,"Success");
 
 		}
 	}
@@ -62,13 +64,13 @@ class git extends \update\_ implements actorsInterface {
 			"branch"=>"master"
 		);
 
-		$this->output(H4,"Self Update");
+		$this->_output($this->H3,"Self Update");
 
-			$this->output(LOG,"INIT",$this->_exec('git init'));
-			$this->output(LOG,"STASH",$this->_exec('git reset --hard HEAD'));
+			$this->_output($this->DONE,"INIT",$this->_exec('git init'));
+			$this->_output($this->DONE,"STASH",$this->_exec('git reset --hard HEAD'));
 
 
-		$this->output(LOG,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
+		$this->_output($this->DONE,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
 
 
 	}

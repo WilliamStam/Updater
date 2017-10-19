@@ -2,7 +2,7 @@
 
 NAMESPACE update\actors;
 
-class composer extends \update\_ implements actorsInterface {
+class composer extends \update\updater implements actorsInterface {
 
 	private static $instance;
 	function __construct(){
@@ -39,7 +39,7 @@ class composer extends \update\_ implements actorsInterface {
 		if (file_exists($folder.'composer.lock')){
 			$this->_start($folder);
 
-			$this->output(DONE,"Success");
+			$this->_output($this->H4,"Success");
 
 		}
 
@@ -50,16 +50,16 @@ class composer extends \update\_ implements actorsInterface {
 
 	}
 	function _start($folder){
-		$this->output(H1,$this->def['label']);
-		$this->output(LOG,"FOLDER",$folder);
+		$this->_output($this->_sql,$this->def['label']);
+		$this->_output($this->DONE,"FOLDER",$folder);
 
 
 
 
 
 
-		$this->output(LOG,"SELF-UPDATE",$this->_exec('composer self-update',$folder));
-		$this->output(LOG,"UPDATE",$this->_exec('composer install',$folder));
+		$this->_output($this->DONE,"SELF-UPDATE",$this->_exec('composer self-update',$folder));
+		$this->_output($this->DONE,"UPDATE",$this->_exec('composer install',$folder));
 
 
 

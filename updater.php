@@ -1,39 +1,46 @@
 <?php
+
+
 namespace update;
-class updater extends _ {
+class updater {
+
+	const
+		DRY = true,
+		H1=array(
+			"web"=>"<h1>%s</h1>",
+			"cli"=>"\n\n%s\n----------------------------------"
+		),
+		H2=array(
+			"web"=>"<h2>%s</h2>",
+			"cli"=>"\n\n%s\n----------------------------------"
+		),
+		H3=array(
+			"web"=>"<h3>%s</h3>",
+			"cli"=>"\n\n%s\n----------------------------------"
+		),
+		H4=array(
+			"web"=>"<h4>%s</h4>",
+			"cli"=>"\n\n%s\n----------------------------------"
+		),
+		DONE=array(
+			"web"=>"<blockquote>%s</blockquote>",
+			"cli"=>"\n\n%s\n\n"
+		),
+		LOG=array(
+			"web"=>"<div><span style='color:#444;'>%s</span>: <span>%s</span></div>",
+			"cli"=>"\n%s: %s"
+		),
+		TXT=array(
+			"web"=>"<div>%s</div>",
+			"cli"=>"\n%s"
+		);
+
+
+
 	function __construct($cfg=false) {
 
 		$dir = dirname( __FILE__ );
-		define("DRY",true);
 
-		define('H1',array(
-			"web"=>"<h1>%s</h1>",
-			"cli"=>"\n\n%s\n----------------------------------"
-		));
-		define('H2',array(
-			"web"=>"<h2>%s</h2>",
-			"cli"=>"\n\n%s\n----------------------------------"
-		));
-		define('H3',array(
-			"web"=>"<h3>%s</h3>",
-			"cli"=>"\n\n%s\n----------------------------------"
-		));
-		define('H4',array(
-			"web"=>"<h4>%s</h4>",
-			"cli"=>"\n\n%s\n----------------------------------"
-		));
-		define('DONE',array(
-			"web"=>"<blockquote>%s</blockquote>",
-			"cli"=>"\n\n%s\n\n"
-		));
-		define('LOG',array(
-			"web"=>"<div><span style='color:#444;'>%s</span>: <span>%s</span></div>",
-			"cli"=>"\n%s: %s"
-		));
-		define('TXT',array(
-			"web"=>"<div>%s</div>",
-			"cli"=>"\n%s"
-		));
 
 
 
@@ -87,11 +94,12 @@ class updater extends _ {
 
 
 		$cfg = array();
-		require($folder.'config.default.inc.php');
+		if (file_exists($folder."config.default.inc.php")) {
+			require($folder.'config.default.inc.php');
+		}
 		if (file_exists($folder."config.inc.php")) {
 			require($folder.'config.inc.php');
 		}
-
 
 
 
@@ -106,12 +114,16 @@ class updater extends _ {
 	}
 
 	function run($actor=false){
+
+
 		if ($actor===false){
 			foreach ($this->actors as $ob){
+
 				$ob['class']::getInstance()->start();
 
 			}
 		} else {
+
 			if (isset($this->actors[$actor])){
 				$this->actors[$actor]['class']::getInstance()->start();
 			} else {
@@ -123,21 +135,95 @@ class updater extends _ {
 	}
 
 
-}
+	function _output(){
+
+
+		$args = array();
+		foreach (func_get_args() as $item){
+			$args[] = $item;
+		};
+
+
+		$template = $args[0];
+		if (php_sapi_name() != 'cli'){
+			$template = $template['web'];
+		} else {
+			$template = $template['cli'];
+		}
+		array_shift($args);
+
+		$str = vsprintf($template,$args);
 
 
 
+		/*
+
+		$str = $str . PHP_EOL;
+		if ($this->cfg['git']['username'] && $this->cfg['git']['password']){
+			$str = str_replace("https://".$this->cfg['git']['username'].':'.$this->cfg['git']['password'] .'@',"&lt; auth &gt;",$str);
+		}
+		if ($this->cfg['git']['password']){
+			$str = str_replace($this->cfg['git']['password'],"********",$str);
+		}
+		if ($this->cfg['DB']['password']){
+			$str = str_replace($this->cfg['DB']['password'],"********",$str);
+		}
+
+		*/
+
+		echo $str;
 
 
-
-function test($input) {
-	if (is_array($input)){
-		header("Content-Type: application/json");
-		echo json_encode($input);
-	} else {
-		header("Content-Type: text/html");
-		echo $input;
+		ob_flush();
+		return $str;
 	}
 
-	exit();
+
+
+	function _exec($cmd,$folder=false){
+
+		if ($this->_sql){
+			return $cmd;
+		} else {
+			$curfolder = getcwd();
+			if ($folder){
+				chdir($folder);
+			}
+
+			$return = shell_exec($cmd." 2>&1 &");
+
+			if ($folder){
+				chdir($curfolder);
+			}
+
+			return $return;
+		}
+
+
+	}
+	function _sql($cmd,$link, $fn,$force=false){
+
+		if ($this->_sql && !$force){
+			return $cmd;
+		} else {
+			$result = mysqli_query($link,$cmd) or die(mysqli_error($link));
+
+			$data = array();
+			while($item = $result->fetch_assoc()){
+				$data[] = $item;
+			}
+
+
+			//test(array($data,$cmd));
+
+			return call_user_func_array($fn,array($data));
+		}
+
+
+	}
+
+
 }
+
+
+
