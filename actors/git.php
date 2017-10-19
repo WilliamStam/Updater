@@ -25,7 +25,6 @@ class git extends \update\updater implements actorsInterface {
 		);
 	}
 	function start(){
-		test($this->cfg);
 		if (isset($this->cfg['git'])){
 
 			$this->_output($this->_sql, "Files");
