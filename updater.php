@@ -173,8 +173,8 @@ class updater {
 
 		echo $str;
 
-
 		ob_flush();
+		flush();
 		return $str;
 	}
 
