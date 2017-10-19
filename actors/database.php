@@ -77,16 +77,24 @@ class database extends \update\updater implements actorsInterface {
 		} else {
 			$this->_output(parent::LOG," - FOLDER","OK");
 		}
-		$compressprogpath =$cfg['updater']['7zip'];
+
+
+		$compressprogpath = isset($cfg['updater']['7zip'])? $cfg['updater']['7zip'] : false;
 
 		$filename = $cfg['DB']['database'] . "_".date("YmdHis") .  ".sql";
-		$compress = file_exists($compressprogpath);
-		if ($compress){
-			$filename = $filename.".7z";
-			$this->_output(parent::LOG," - COMPRESSION","TRUE");
+
+		if ($compressprogpath){
+			$compress = file_exists($compressprogpath);
+			if ($compress){
+				$filename = $filename.".7z";
+				$this->_output(parent::LOG," - COMPRESSION","TRUE");
+			} else {
+				$this->_output(parent::LOG," - COMPRESSION","FALSE - Path not correct");
+			}
 		} else {
 			$this->_output(parent::LOG," - COMPRESSION","FALSE");
 		}
+
 
 
 
