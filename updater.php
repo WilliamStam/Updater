@@ -39,7 +39,6 @@ class updater {
 
 	function __construct($cfg=false) {
 		header('X-Accel-Buffering: no');
-		header('Content-Encoding: none;');
 		$dir = dirname( __FILE__ );
 
 
