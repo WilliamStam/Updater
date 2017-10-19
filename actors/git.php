@@ -34,7 +34,7 @@ class git extends \update\_ implements actorsInterface {
 			$this->self_update();
 
 
-
+			$this->output(H4,"Project");
 			$this->output(LOG,"CHECKING GIT",_exec('git --version'));
 
 
@@ -65,7 +65,13 @@ class git extends \update\_ implements actorsInterface {
 			"branch"=>"master"
 		);
 
+		$this->output(H4,"Self Update");
 
+		if (file_exists("\\.git")){
+			$this->output(LOG,"STASH",_exec('git reset --hard HEAD'));
+		} else {
+			$this->output(LOG,"INIT",_exec('git init'));
+		}
 
 
 		$this->output(LOG,"SELF UPDATING",_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
