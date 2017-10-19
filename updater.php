@@ -38,7 +38,7 @@ class updater {
 
 
 	function __construct($cfg=false) {
-
+		header('X-Accel-Buffering: no');
 		$dir = dirname( __FILE__ );
 
 
