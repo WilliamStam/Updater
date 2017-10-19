@@ -39,7 +39,7 @@ class composer extends \update\updater implements actorsInterface {
 		if (file_exists($folder.'composer.lock')){
 			$this->_start($folder);
 
-			$this->_output($this->DONE,"Success");
+			$this->_output(updater::DONE,"Success");
 
 		}
 

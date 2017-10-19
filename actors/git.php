@@ -27,7 +27,7 @@ class git extends \update\updater implements actorsInterface {
 	function start(){
 		if (isset($this->cfg['git'])){
 
-			$this->_output($this->H1, "Files");
+			$this->_output(updater::H1, "Files");
 
 
 
