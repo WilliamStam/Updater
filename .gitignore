@@ -44,3 +44,5 @@ vendor/*
 Thumbs.db
 
 config.inc.php
+config.default.inc.php
+composer.lock
