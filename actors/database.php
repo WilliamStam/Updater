@@ -12,9 +12,7 @@ class database extends \update\updater implements actorsInterface {
 
 	}
 	public static function getInstance() {
-		if (is_null(self::$instance)) {
-			self::$instance = new self();
-		}
+		self::$instance = new self();
 		return self::$instance;
 	}
 	static function _def(){
