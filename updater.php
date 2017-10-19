@@ -118,9 +118,7 @@ class updater {
 
 		if ($actor===false){
 			foreach ($this->actors as $ob){
-
 				$ob['class']::getInstance()->start();
-
 			}
 		} else {
 
@@ -155,21 +153,6 @@ class updater {
 		$str = vsprintf($template,$args);
 
 
-
-		/*
-
-		$str = $str . PHP_EOL;
-		if ($this->cfg['git']['username'] && $this->cfg['git']['password']){
-			$str = str_replace("https://".$this->cfg['git']['username'].':'.$this->cfg['git']['password'] .'@',"&lt; auth &gt;",$str);
-		}
-		if ($this->cfg['git']['password']){
-			$str = str_replace($this->cfg['git']['password'],"********",$str);
-		}
-		if ($this->cfg['DB']['password']){
-			$str = str_replace($this->cfg['DB']['password'],"********",$str);
-		}
-
-		*/
 
 		echo $str;
 
