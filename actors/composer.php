@@ -51,15 +51,15 @@ class composer extends \update\_ implements actorsInterface {
 	}
 	function _start($folder){
 		$this->output(H1,$this->def['label']);
-		$this->output(LOG,"Folder",$folder);
+		$this->output(LOG,"FOLDER",$folder);
 
 
 
 
 
 
-		$this->output(LOG,"Self-Update",_exec('composer self-update',$folder));
-		$this->output(LOG,"Execute",_exec('composer install',$folder));
+		$this->output(LOG,"SELF-UPDATE",_exec('composer self-update',$folder));
+		$this->output(LOG,"UPDATE",_exec('composer install',$folder));
 
 
 

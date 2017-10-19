@@ -72,10 +72,10 @@ class database extends \update\_ implements actorsInterface {
 		$this->output(H3,"Backup");
 		if (!file_exists($cfg['backup'])) {
 			@mkdir($cfg['backup'], 0777, true);
-			$this->output(LOG," - Folder","Created");
+			$this->output(LOG," - FOLDER","Created");
 
 		} else {
-			$this->output(LOG," - Folder","OK");
+			$this->output(LOG," - FOLDER","OK");
 		}
 		$compressprogpath =$cfg['updater']['7zip'];
 
@@ -83,15 +83,15 @@ class database extends \update\_ implements actorsInterface {
 		$compress = file_exists($compressprogpath);
 		if ($compress){
 			$filename = $filename.".7z";
-			$this->output(LOG," - Compression","TRUE");
+			$this->output(LOG," - COMPRESSION","TRUE");
 		} else {
-			$this->output(LOG," - Compression","FALSE");
+			$this->output(LOG," - COMPRESSION","FALSE");
 		}
 
 
 
 		$filepath = $cfg['backup'] .$filename;
-		$this->output(LOG," - Starting Backup",$filename);
+		$this->output(LOG," - STARTING",$filename);
 	}
 	function _start($cfg){
 

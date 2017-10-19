@@ -80,6 +80,7 @@ class _ {
 		echo $str;
 
 
+		ob_flush();
 		return $str;
 	}
 

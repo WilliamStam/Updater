@@ -1,7 +1,7 @@
 <?php
 
 $dir = dirname( __FILE__ );
-define("DRY",true);
+define("DRY",false);
 
 define('H1',array(
 	"web"=>"<h1>%s</h1>",
