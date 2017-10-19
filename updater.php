@@ -5,7 +5,7 @@ namespace update;
 class updater {
 
 	const
-		DRY = true,
+		DRY = false,
 		H1=array(
 			"web"=>"<h1>%s</h1>",
 			"cli"=>"\n\n%s\n----------------------------------"
