@@ -59,8 +59,8 @@ class git extends \update\_ implements actorsInterface {
 	}
 	function self_update(){
 		$self['git'] = array(
-			'username'=>"WilliamStam",
-			"password"=>"fa08d653420c102fdcf2e35f6cfbf3118c7ed3c0",
+			'username'=>"",
+			"password"=>"",
 			"path"=>"github.com/WilliamStam/Updater",
 			"branch"=>"master"
 		);
@@ -68,7 +68,7 @@ class git extends \update\_ implements actorsInterface {
 
 
 
-		$this->output(LOG,"SELF UPDATING",_exec('git pull https://'.$self['git']['username'] .':'.$self['git']['password'] .'@'.$self['git']['path'] .' ' . $self['git']['branch'].""));
+		$this->output(LOG,"SELF UPDATING",_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
 
 
 	}
