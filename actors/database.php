@@ -50,7 +50,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 		if (isset($this->cfg['DB']) && $this->db_update){
-			$this->_output($this->H1,$this->def['label']);
+			$this->_output(parent::H1,$this->def['label']);
 
 
 
@@ -64,18 +64,18 @@ class database extends \update\updater implements actorsInterface {
 
 
 
-			$this->_output($this->DONE,"Success");
+			$this->_output(parent::DONE,"Success");
 
 		}
 	}
 	function backup($cfg){
-		$this->_output($this->H2,"Backup");
+		$this->_output(parent::H2,"Backup");
 		if (!file_exists($cfg['backup'])) {
 			@mkdir($cfg['backup'], 0777, true);
-			$this->_output($this->LOG," - FOLDER","Created");
+			$this->_output(parent::LOG," - FOLDER","Created");
 
 		} else {
-			$this->_output($this->LOG," - FOLDER","OK");
+			$this->_output(parent::LOG," - FOLDER","OK");
 		}
 		$compressprogpath =$cfg['updater']['7zip'];
 
@@ -83,15 +83,15 @@ class database extends \update\updater implements actorsInterface {
 		$compress = file_exists($compressprogpath);
 		if ($compress){
 			$filename = $filename.".7z";
-			$this->_output($this->LOG," - COMPRESSION","TRUE");
+			$this->_output(parent::LOG," - COMPRESSION","TRUE");
 		} else {
-			$this->_output($this->LOG," - COMPRESSION","FALSE");
+			$this->_output(parent::LOG," - COMPRESSION","FALSE");
 		}
 
 
 
 		$filepath = $cfg['backup'] .$filename;
-		$this->_output($this->LOG," - STARTING",$filename);
+		$this->_output(parent::LOG," - STARTING",$filename);
 	}
 	function _start($cfg){
 
@@ -105,7 +105,7 @@ class database extends \update\updater implements actorsInterface {
 		}
 
 
-		$this->_output($this->LOG,"DATABASE",$cfg['DB']['database']);
+		$this->_output(parent::LOG,"DATABASE",$cfg['DB']['database']);
 
 		$this->backup($cfg);
 
@@ -142,7 +142,7 @@ class database extends \update\updater implements actorsInterface {
 		$needsupdate = false;
 
 
-		$this->_output($this->H3,"Checking Table Versions");
+		$this->_output(parent::H3,"Checking Table Versions");
 
 		$tablelist = array();
 		foreach ($tables as $k=>$item){
@@ -161,14 +161,14 @@ class database extends \update\updater implements actorsInterface {
 				$status = $adj." - ". $outby . " (". count($changes[$k]) . ")";
 			}
 
-			$this->_output($this->LOG,$str,$status);
+			$this->_output(parent::LOG,$str,$status);
 		}
 
 
 
 
 		if ($needsupdate){
-			$this->_output($this->H3,"Updating Tables");
+			$this->_output(parent::H3,"Updating Tables");
 
 			foreach ($tables as $k=>$item){
 
@@ -186,7 +186,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 					$status = "Ok";
-					$this->_output($this->LOG,"- $k",$status);
+					$this->_output(parent::LOG,"- $k",$status);
 				}
 
 

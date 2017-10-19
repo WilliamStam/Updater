@@ -182,7 +182,7 @@ class updater {
 
 	function _exec($cmd,$folder=false){
 
-		if ($this->_sql){
+		if (self::DRY){
 			return $cmd;
 		} else {
 			$curfolder = getcwd();
@@ -203,7 +203,7 @@ class updater {
 	}
 	function _sql($cmd,$link, $fn,$force=false){
 
-		if ($this->_sql && !$force){
+		if (self::DRY && !$force){
 			return $cmd;
 		} else {
 			$result = mysqli_query($link,$cmd) or die(mysqli_error($link));

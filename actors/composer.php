@@ -39,7 +39,7 @@ class composer extends \update\updater implements actorsInterface {
 		if (file_exists($folder.'composer.lock')){
 			$this->_start($folder);
 
-			$this->_output(updater::DONE,"Success");
+			$this->_output(parent::DONE,"Success");
 
 		}
 
@@ -50,16 +50,16 @@ class composer extends \update\updater implements actorsInterface {
 
 	}
 	function _start($folder){
-		$this->_output($this->H1,$this->def['label']);
-		$this->_output($this->LOG,"FOLDER",$folder);
+		$this->_output(parent::H1,$this->def['label']);
+		$this->_output(parent::LOG,"FOLDER",$folder);
 
 
 
 
 
 
-		$this->_output($this->LOG,"SELF-UPDATE",$this->_exec('composer self-update',$folder));
-		$this->_output($this->LOG,"UPDATE",$this->_exec('composer install',$folder));
+		$this->_output(parent::LOG,"SELF-UPDATE",$this->_exec('composer self-update',$folder));
+		$this->_output(parent::LOG,"UPDATE",$this->_exec('composer install',$folder));
 
 
 
