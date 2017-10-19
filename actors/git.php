@@ -30,13 +30,13 @@ class git extends \update\updater implements actorsInterface {
 			$this->_output(parent::H1, "Files");
 
 
-
+			$this->_output(parent::LOG,"CHECKING GIT",$this->_exec('git --version'));
 
 			$this->self_update();
 
 
 			$this->_output(parent::H3,"Project");
-			$this->_output(parent::LOG,"CHECKING GIT",$this->_exec('git --version'));
+
 
 
 				$this->_output(parent::LOG,"INIT",$this->_exec('git init',$this->cfg_folder));
