@@ -27,7 +27,7 @@ class updater {
 			"cli"=>"\n\n%s\n\n"
 		),
 		LOG=array(
-			"web"=>"<div><span style='color:#444;'>%s</span>: <span>%s</span></div>",
+			"web"=>"<div><span style='color:#444;'>%s</span> <pre>%s</pre></div>",
 			"cli"=>"\n%s: %s"
 		),
 		TXT=array(
@@ -38,7 +38,7 @@ class updater {
 
 
 	function __construct($cfg=false) {
-		header('X-Accel-Buffering: no');
+
 		$dir = dirname( __FILE__ );
 
 
@@ -114,7 +114,7 @@ class updater {
 	}
 
 	function run($actor=false){
-
+		header('X-Accel-Buffering: no');
 
 		if ($actor===false){
 			foreach ($this->actors as $ob){
