@@ -44,8 +44,6 @@ class composer extends \update\updater implements actorsInterface {
 
 
 
-
-
 	}
 	function _start($folder){
 		$this->_output(parent::H1,$this->def['label']);
