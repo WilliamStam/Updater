@@ -5,7 +5,7 @@ namespace update;
 class updater {
 
 	const
-		DRY = false,
+		DRY = true,
 		H1=array(
 			"web"=>"<h1>%s</h1>",
 			"cli"=>"\n\n%s\n----------------------------------"
@@ -27,6 +27,10 @@ class updater {
 			"cli"=>"\n\n%s\n\n"
 		),
 		LOG=array(
+			"web"=>"<div><span style='color:#444;'>%s</span> <span>%s</span></div>",
+			"cli"=>"\n%s: %s"
+		),
+		EXEC=array(
 			"web"=>"<div><span style='color:#444;'>%s</span> <pre>%s</pre></div>",
 			"cli"=>"\n%s: %s"
 		),

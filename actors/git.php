@@ -28,7 +28,7 @@ class git extends \update\updater implements actorsInterface {
 			$this->_output(parent::H1, "Files");
 
 
-			$this->_output(parent::LOG,"CHECKING GIT",$this->_exec('git --version'));
+			$this->_output(parent::EXEC,"CHECKING GIT",$this->_exec('git --version'));
 
 			$this->self_update();
 
@@ -37,13 +37,13 @@ class git extends \update\updater implements actorsInterface {
 
 
 
-				$this->_output(parent::LOG,"INIT",$this->_exec('git init',$this->cfg_folder));
-				$this->_output(parent::LOG,"STASH",$this->_exec('git reset --hard HEAD',$this->cfg_folder));
+				$this->_output(parent::EXEC,"INIT",$this->_exec('git init',$this->cfg_folder));
+				$this->_output(parent::EXEC,"STASH",$this->_exec('git reset --hard HEAD',$this->cfg_folder));
 
 			if ($this->cfg['git']['username']&&$this->cfg['git']['password']){
-				$this->_output(parent::LOG,"UPDATING",$this->_exec('git pull https://'.$this->cfg['git']['username'] .':'.$this->cfg['git']['password'] .'@'.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
+				$this->_output(parent::EXEC,"UPDATING",$this->_exec('git pull https://'.$this->cfg['git']['username'] .':'.$this->cfg['git']['password'] .'@'.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			} else {
-				$this->_output(parent::LOG,"UPDATING",$this->_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
+				$this->_output(parent::EXEC,"UPDATING",$this->_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			}
 
 
@@ -63,11 +63,11 @@ class git extends \update\updater implements actorsInterface {
 
 		$this->_output(parent::H3,"Self Update");
 
-			$this->_output(parent::LOG,"INIT",$this->_exec('git init'));
-			$this->_output(parent::LOG,"STASH",$this->_exec('git reset --hard HEAD'));
+			$this->_output(parent::EXEC,"INIT",$this->_exec('git init'));
+			$this->_output(parent::EXEC,"STASH",$this->_exec('git reset --hard HEAD'));
 
 
-		$this->_output(parent::LOG,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
+		$this->_output(parent::EXEC,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
 
 
 	}

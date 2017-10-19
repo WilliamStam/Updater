@@ -45,6 +45,7 @@ class database extends \update\updater implements actorsInterface {
 
 		$this->db_update = $sql;
 
+		//test($sql);
 
 
 		if (isset($this->cfg['DB']) && $this->db_update){
