@@ -5,38 +5,7 @@ namespace update;
 
 class _ {
 	function __construct(){
-		$cfg = array();
-		$root_folder = dirname(__FILE__);
-		$root_folder = $root_folder . DIRECTORY_SEPARATOR;
 
-		$errorFolder = $root_folder . "logs";
-		$errorFile = $errorFolder . DIRECTORY_SEPARATOR . "php-".date("Y-m") . ".log";
-		ini_set("error_log", $errorFile);
-
-
-
-
-		$last_folder = null;
-		$folder = dirname(__FILE__);
-		while (is_dir($folder) && !file_exists($folder.DIRECTORY_SEPARATOR.'config.default.inc.php') && $last_folder != $folder){
-			$last_folder = $folder;
-			$folder = dirname($folder);
-		}
-		$folder = $folder . DIRECTORY_SEPARATOR;
-
-
-		$cfg = array();
-		require($folder.'config.default.inc.php');
-		if (file_exists($folder."config.inc.php")) {
-			require($folder.'config.inc.php');
-		}
-
-
-
-
-
-		$this->cfg = $cfg;
-		$this->cfg_folder = $folder;
 
 	}
 
@@ -85,6 +54,48 @@ class _ {
 	}
 
 
+
+	function _exec($cmd,$folder=false){
+
+		if (DRY){
+			return $cmd;
+		} else {
+			$curfolder = getcwd();
+			if ($folder){
+				chdir($folder);
+			}
+
+			$return = shell_exec($cmd." 2>&1 &");
+
+			if ($folder){
+				chdir($curfolder);
+			}
+
+			return $return;
+		}
+
+
+	}
+	function _sql($cmd,$link, $fn,$force=false){
+
+		if (DRY && !$force){
+			return $cmd;
+		} else {
+			$result = mysqli_query($link,$cmd) or die(mysqli_error($link));
+
+			$data = array();
+			while($item = $result->fetch_assoc()){
+				$data[] = $item;
+			}
+
+
+			//test(array($data,$cmd));
+
+			return call_user_func_array($fn,array($data));
+		}
+
+
+	}
 
 
 

@@ -35,16 +35,16 @@ class git extends \update\_ implements actorsInterface {
 
 
 			$this->output(H4,"Project");
-			$this->output(LOG,"CHECKING GIT",_exec('git --version'));
+			$this->output(LOG,"CHECKING GIT",$this->_exec('git --version'));
 
 
-				$this->output(LOG,"INIT",_exec('git init',$this->cfg_folder));
-				$this->output(LOG,"STASH",_exec('git reset --hard HEAD',$this->cfg_folder));
+				$this->output(LOG,"INIT",$this->_exec('git init',$this->cfg_folder));
+				$this->output(LOG,"STASH",$this->_exec('git reset --hard HEAD',$this->cfg_folder));
 
 			if ($this->cfg['git']['username']&&$this->cfg['git']['password']){
-				$this->output(LOG,"UPDATING",_exec('git pull https://'.$this->cfg['git']['username'] .':'.$this->cfg['git']['password'] .'@'.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
+				$this->output(LOG,"UPDATING",$this->_exec('git pull https://'.$this->cfg['git']['username'] .':'.$this->cfg['git']['password'] .'@'.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			} else {
-				$this->output(LOG,"UPDATING",_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
+				$this->output(LOG,"UPDATING",$this->_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			}
 
 
@@ -64,11 +64,11 @@ class git extends \update\_ implements actorsInterface {
 
 		$this->output(H4,"Self Update");
 
-			$this->output(LOG,"INIT",_exec('git init'));
-			$this->output(LOG,"STASH",_exec('git reset --hard HEAD'));
+			$this->output(LOG,"INIT",$this->_exec('git init'));
+			$this->output(LOG,"STASH",$this->_exec('git reset --hard HEAD'));
 
 
-		$this->output(LOG,"SELF UPDATING",_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
+		$this->output(LOG,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
 
 
 	}

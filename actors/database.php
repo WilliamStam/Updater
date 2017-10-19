@@ -114,13 +114,13 @@ class database extends \update\_ implements actorsInterface {
 		mysqli_query($link,"CREATE TABLE IF NOT EXISTS `_version` (  `table` varchar(100) NOT NULL,  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),  `version` int(4) DEFAULT NULL,  PRIMARY KEY (`table`),  UNIQUE KEY `table` (`table`));") or die(mysqli_error($link));
 
 
-		$tables_ = _sql('SELECT  table_name AS `table` FROM  information_schema.tables WHERE  table_schema = DATABASE()',$link, function($data){ return array_map(function($i){ return $i['table']; },$data);},true);
+		$tables_ = $this->_sql('SELECT  table_name AS `table` FROM  information_schema.tables WHERE  table_schema = DATABASE()',$link, function($data){ return array_map(function($i){ return $i['table']; },$data);},true);
 
 
 
 
 
-		$version = _sql('SELECT * FROM _version',$link, function($data){return $data;},true);
+		$version = $this->_sql('SELECT * FROM _version',$link, function($data){return $data;},true);
 
 		$changes = $this->db_update;
 
