@@ -50,7 +50,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 		if (isset($this->cfg['DB']) && $this->db_update){
-			$this->_output($this->_sql,$this->def['label']);
+			$this->_output($this->H1,$this->def['label']);
 
 
 
@@ -64,7 +64,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 
-			$this->_output($this->H4,"Success");
+			$this->_output($this->DONE,"Success");
 
 		}
 	}
@@ -72,10 +72,10 @@ class database extends \update\updater implements actorsInterface {
 		$this->_output($this->H2,"Backup");
 		if (!file_exists($cfg['backup'])) {
 			@mkdir($cfg['backup'], 0777, true);
-			$this->_output($this->DONE," - FOLDER","Created");
+			$this->_output($this->LOG," - FOLDER","Created");
 
 		} else {
-			$this->_output($this->DONE," - FOLDER","OK");
+			$this->_output($this->LOG," - FOLDER","OK");
 		}
 		$compressprogpath =$cfg['updater']['7zip'];
 
@@ -83,15 +83,15 @@ class database extends \update\updater implements actorsInterface {
 		$compress = file_exists($compressprogpath);
 		if ($compress){
 			$filename = $filename.".7z";
-			$this->_output($this->DONE," - COMPRESSION","TRUE");
+			$this->_output($this->LOG," - COMPRESSION","TRUE");
 		} else {
-			$this->_output($this->DONE," - COMPRESSION","FALSE");
+			$this->_output($this->LOG," - COMPRESSION","FALSE");
 		}
 
 
 
 		$filepath = $cfg['backup'] .$filename;
-		$this->_output($this->DONE," - STARTING",$filename);
+		$this->_output($this->LOG," - STARTING",$filename);
 	}
 	function _start($cfg){
 
@@ -105,7 +105,7 @@ class database extends \update\updater implements actorsInterface {
 		}
 
 
-		$this->_output($this->DONE,"DATABASE",$cfg['DB']['database']);
+		$this->_output($this->LOG,"DATABASE",$cfg['DB']['database']);
 
 		$this->backup($cfg);
 
@@ -161,7 +161,7 @@ class database extends \update\updater implements actorsInterface {
 				$status = $adj." - ". $outby . " (". count($changes[$k]) . ")";
 			}
 
-			$this->_output($this->DONE,$str,$status);
+			$this->_output($this->LOG,$str,$status);
 		}
 
 
@@ -186,7 +186,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 					$status = "Ok";
-					$this->_output($this->DONE,"- $k",$status);
+					$this->_output($this->LOG,"- $k",$status);
 				}
 
 
