@@ -5,7 +5,7 @@ namespace update;
 class updater {
 
 	const
-		DRY = false,
+
 		H1=array(
 			"web"=>"<h1>%s</h1>",
 			"cli"=>"\n\n%s\n----------------------------------"
@@ -41,12 +41,12 @@ class updater {
 
 
 
-	function __construct($cfg=false) {
+	function __construct($cfg=false,$folder=false,$execute=true) {
 
 		$dir = dirname( __FILE__ );
 
 
-
+		$this->execute = $execute;
 
 		foreach(glob($dir.DIRECTORY_SEPARATOR."_*.php") as $file){
 			require_once($file);
@@ -76,43 +76,45 @@ class updater {
 
 		$this->actors = $actors;
 
-
-		$cfg = array();
-		$root_folder = dirname(__FILE__);
-		$root_folder = $root_folder . DIRECTORY_SEPARATOR;
-
-		$errorFolder = $root_folder . "logs";
-		$errorFile = $errorFolder . DIRECTORY_SEPARATOR . "php-".date("Y-m") . ".log";
-		ini_set("error_log", $errorFile);
+		if ($cfg===false){
 
 
+			$root_folder = dirname(__FILE__);
+			$root_folder = $root_folder . DIRECTORY_SEPARATOR;
+
+			$errorFolder = $root_folder . "logs";
+			$errorFile = $errorFolder . DIRECTORY_SEPARATOR . "php-".date("Y-m") . ".log";
+			ini_set("error_log", $errorFile);
 
 
-		$last_folder = null;
-		$folder = dirname(__FILE__);
-		while (is_dir($folder) && !file_exists($folder.DIRECTORY_SEPARATOR.'config.default.inc.php') && $last_folder != $folder){
-			$last_folder = $folder;
-			$folder = dirname($folder);
+
+
+			$last_folder = null;
+			$folder = dirname(__FILE__);
+			while (is_dir($folder) && !file_exists($folder.DIRECTORY_SEPARATOR.'config.default.inc.php') && $last_folder != $folder){
+				$last_folder = $folder;
+				$folder = dirname($folder);
+			}
+			$folder = $folder . DIRECTORY_SEPARATOR;
+
+
+			$cfg = array();
+			if (file_exists($folder."config.default.inc.php")) {
+				require($folder.'config.default.inc.php');
+			}
+			if (file_exists($folder."config.inc.php")) {
+				require($folder.'config.inc.php');
+			}
+
+
 		}
-		$folder = $folder . DIRECTORY_SEPARATOR;
-
-
-		$cfg = array();
-		if (file_exists($folder."config.default.inc.php")) {
-			require($folder.'config.default.inc.php');
-		}
-		if (file_exists($folder."config.inc.php")) {
-			require($folder.'config.inc.php');
-		}
-
-
-
-
 		$this->cfg = $cfg;
+		if ($folder===false){
+			$folder = "./";
+		}
+
+
 		$this->cfg_folder = $folder;
-
-
-
 
 
 	}
@@ -169,7 +171,7 @@ class updater {
 
 	function _exec($cmd,$folder=false){
 
-		if (self::DRY){
+		if ($this->execute){
 			return $cmd;
 		} else {
 			$curfolder = getcwd();
@@ -190,7 +192,7 @@ class updater {
 	}
 	function _sql($cmd,$link, $fn,$force=false){
 
-		if (self::DRY && !$force){
+		if ($this->execute && !$force){
 			return $cmd;
 		} else {
 			$result = mysqli_query($link,$cmd) or die(mysqli_error($link));
