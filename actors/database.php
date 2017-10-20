@@ -5,11 +5,9 @@ NAMESPACE update\actors;
 class database extends \update\updater implements actorsInterface {
 
 	private static $instance;
-	function __construct(){
-		parent::__construct();
-
+	function __construct($cfg=false,$folder=false,$test=false){
+		parent::__construct($cfg,$folder,$test);
 		$this->def = self::_def();
-
 	}
 	public static function getInstance() {
 		self::$instance = new self();
@@ -25,6 +23,7 @@ class database extends \update\updater implements actorsInterface {
 	}
 
 	function start(){
+
 		$last_folder = null;
 		$folder = dirname(__FILE__);
 		while (is_dir($folder) && !file_exists($folder.DIRECTORY_SEPARATOR.'db_update.php') && $last_folder != $folder){
