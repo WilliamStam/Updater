@@ -41,12 +41,12 @@ class updater {
 
 
 
-	function __construct($cfg=false,$folder=false,$execute=true) {
+	function __construct($cfg=false,$folder=false,$test=false) {
 
 		$dir = dirname( __FILE__ );
 
 
-		$this->execute = $execute;
+		$this->test = $test;
 
 		foreach(glob($dir.DIRECTORY_SEPARATOR."_*.php") as $file){
 			require_once($file);
@@ -172,7 +172,7 @@ class updater {
 
 	function _exec($cmd,$folder=false){
 
-		if ($this->execute){
+		if ($this->test){
 			return $cmd;
 		} else {
 			$curfolder = getcwd();
@@ -193,7 +193,7 @@ class updater {
 	}
 	function _sql($cmd,$link, $fn,$force=false){
 
-		if ($this->execute && !$force){
+		if ($this->test && !$force){
 			return $cmd;
 		} else {
 			$result = mysqli_query($link,$cmd) or die(mysqli_error($link));
