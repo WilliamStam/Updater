@@ -120,6 +120,7 @@ class updater {
 	}
 
 	function run($actor=false){
+		ob_start();
 		header('X-Accel-Buffering: no');
 
 		if ($actor===false){
