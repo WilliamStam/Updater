@@ -61,7 +61,7 @@ class git extends \update\updater implements actorsInterface {
 			"branch"=>"master"
 		);
 
-		$dir = dirname( __FILE__ );
+		$dir = dirname(dirname( __FILE__ ));
 
 
 		$this->_output(parent::H3,"Self Update");
