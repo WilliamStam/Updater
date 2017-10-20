@@ -61,13 +61,16 @@ class git extends \update\updater implements actorsInterface {
 			"branch"=>"master"
 		);
 
+		$dir = dirname( __FILE__ );
+
+
 		$this->_output(parent::H3,"Self Update");
 
-			$this->_output(parent::EXEC,"INIT",$this->_exec('git init'));
-			$this->_output(parent::EXEC,"STASH",$this->_exec('git reset --hard HEAD'));
+		$this->_output(parent::EXEC,"INIT",$this->_exec('git init',$dir));
+		$this->_output(parent::EXEC,"STASH",$this->_exec('git reset --hard HEAD',$dir));
 
 
-		$this->_output(parent::EXEC,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch'].""));
+		$this->_output(parent::EXEC,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch']."",$dir));
 
 
 	}
