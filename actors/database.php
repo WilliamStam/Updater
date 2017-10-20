@@ -5,12 +5,12 @@ NAMESPACE update\actors;
 class database extends \update\updater implements actorsInterface {
 
 	private static $instance;
-	function __construct($cfg=false,$folder=false,$test=false){
-		parent::__construct($cfg,$folder,$test);
+	function __construct(){
+		parent::__construct(...func_get_args());
 		$this->def = self::_def();
 	}
 	public static function getInstance() {
-		self::$instance = new self();
+		self::$instance = new self(...func_get_args());
 		return self::$instance;
 	}
 	static function _def(){

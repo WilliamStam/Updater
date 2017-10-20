@@ -52,8 +52,6 @@ class updater {
 
 
 
-
-
 		$dir = dirname( __FILE__ );
 
 
@@ -126,20 +124,23 @@ class updater {
 		$this->cfg_folder = $folder;
 
 
+
+
 	}
 
 	function run($actor=false){
 		ob_start();
 		header('X-Accel-Buffering: no');
 
+
 		if ($actor===false){
 			foreach ($this->actors as $ob){
-				$ob['class']::getInstance()->start();
+				$ob['class']::getInstance($this->cfg,$this->cfg_folder,$this->test)->start();
 			}
 		} else {
 
 			if (isset($this->actors[$actor])){
-				$this->actors[$actor]['class']::getInstance()->start();
+				$this->actors[$actor]['class']::getInstance($this->cfg,$this->cfg_folder,$this->test)->start();
 			} else {
 				echo "no actor like that exists here: " . $actor;
 				exit();
