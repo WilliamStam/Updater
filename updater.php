@@ -51,8 +51,7 @@ class updater {
 
 
 
-		echo $errorFile;
-		exit();
+
 
 
 		$dir = dirname( __FILE__ );
