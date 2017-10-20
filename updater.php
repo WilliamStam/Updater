@@ -42,6 +42,16 @@ class updater {
 
 
 	function __construct($cfg=false,$folder=false,$test=false) {
+		$root_folder = dirname(__FILE__);
+		$root_folder = $root_folder . DIRECTORY_SEPARATOR;
+
+		$errorFolder = $root_folder . "logs";
+		$errorFile = $errorFolder . DIRECTORY_SEPARATOR . "php-".date("Y-m") . ".log";
+		ini_set("error_log", $errorFile);
+
+
+
+
 
 		$dir = dirname( __FILE__ );
 
@@ -76,15 +86,13 @@ class updater {
 
 		$this->actors = $actors;
 
+
+
+
 		if ($cfg===false){
 
 
-			$root_folder = dirname(__FILE__);
-			$root_folder = $root_folder . DIRECTORY_SEPARATOR;
 
-			$errorFolder = $root_folder . "logs";
-			$errorFile = $errorFolder . DIRECTORY_SEPARATOR . "php-".date("Y-m") . ".log";
-			ini_set("error_log", $errorFile);
 
 
 
