@@ -97,7 +97,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 		$filepath = $cfg['backup'] .$filename;
-		$this->_output(parent::LOG," - BACKUP",$filepath);
+		$this->_output(parent::LOG," - BACKUP",$filename);
 
 
 
