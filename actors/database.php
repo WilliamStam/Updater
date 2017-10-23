@@ -97,7 +97,14 @@ class database extends \update\updater implements actorsInterface {
 
 
 		$filepath = $cfg['backup'] .$filename;
-		$this->_output(parent::LOG," - STARTING",$filename);
+		$this->_output(parent::LOG," - FILENAME",$filename);
+
+
+
+		$this->_output(parent::EXEC,"STARTING",$this->_exec("mysqldump --opt --single-transaction --host={$this->cfg['DB']['host']} --user={$this->cfg['DB']['username']} --password={$this->cfg['DB']['password']} {$this->cfg['DB']['database']} > $filename",$filepath));
+
+
+
 	}
 	function _start($cfg){
 
