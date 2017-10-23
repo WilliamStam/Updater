@@ -101,7 +101,7 @@ class database extends \update\updater implements actorsInterface {
 
 
 
-		$this->_output(parent::EXEC,"STARTING",$this->_exec("mysqldump --opt --single-transaction --host={$this->cfg['DB']['host']} --user={$this->cfg['DB']['username']} --password={$this->cfg['DB']['password']} {$this->cfg['DB']['database']} > $filename"));
+		$this->_output(parent::EXEC,"STARTING",$this->_exec("mysqldump --opt --single-transaction --host={$this->cfg['DB']['host']} --user={$this->cfg['DB']['username']} --password={$this->cfg['DB']['password']} {$this->cfg['DB']['database']} > $filepath"));
 
 
 	}
