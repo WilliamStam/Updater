@@ -51,7 +51,6 @@ class updater {
 
 
 
-
 		$dir = dirname( __FILE__ );
 
 
