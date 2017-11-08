@@ -129,12 +129,23 @@ class database extends \update\updater implements actorsInterface {
 		$tables_ = $this->_sql('SELECT  table_name AS `table` FROM  information_schema.tables WHERE  table_schema = DATABASE()',$link, function($data){ return array_map(function($i){ return $i['table']; },$data);},true);
 
 
-
-
-
 		$version = $this->_sql('SELECT * FROM _version',$link, function($data){return $data;},true);
 
 		$changes = $this->db_update;
+
+		foreach ($changes as $table=>$sql){
+			if (!in_array($table,$tables_)){
+				$tables_[] = $table;
+			}
+		}
+
+
+
+		//test($tables_);
+
+
+
+
 
 		$tables = array();
 		foreach ($tables_ as $table){
