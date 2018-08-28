@@ -53,7 +53,7 @@ class composer extends \update\updater implements actorsInterface {
 
 
 		$this->_output(parent::EXEC,"SELF-UPDATE",$this->_exec('composer self-update',$folder));
-		$this->_output(parent::EXEC,"UPDATE",$this->_exec('composer install',$folder));
+		$this->_output(parent::EXEC,"INSTALL",$this->_exec('composer install',$folder));
 
 
 
