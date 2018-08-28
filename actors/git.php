@@ -46,7 +46,7 @@ class git extends \update\updater implements actorsInterface {
 				$this->_output(parent::EXEC,"UPDATING",$this->_exec('git pull '.$this->cfg['git']['path'] .' ' . $this->cfg['git']['branch']."",$this->cfg_folder));
 			}
 
-
+			$this->_output(parent::EXEC,"UPDATING SUBMODULES",$this->_exec('git submodule update --init --recursive',$this->cfg_folder));
 
 
 			$this->_output(parent::DONE,"Success");
@@ -65,14 +65,8 @@ class git extends \update\updater implements actorsInterface {
 
 
 		$this->_output(parent::H3,"Self Update");
-		$this->_output(parent::H3,$dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git");
 
 
-		if (is_file($dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git")){
-			//$this->_output(parent::EXEC,"SELF UPDATING",$this->_exec('git submodule update --recursive --remote',$dir));
-		} else {
-
-		}
 		$this->_output(parent::EXEC,"INIT",$this->_exec('git init',$dir));
 		$this->_output(parent::EXEC,"STASH",$this->_exec('git reset --hard HEAD',$dir));
 		$this->_output(parent::EXEC,"SELF UPDATING",$this->_exec('git pull https://'.$self['git']['path'] .' ' . $self['git']['branch']."",$dir));
