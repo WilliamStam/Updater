@@ -119,7 +119,9 @@ class database extends \update\updater implements actorsInterface {
 
 		$this->_output(parent::LOG,"DATABASE",$cfg['DB']['database']);
 
-		$this->backup($cfg);
+		if ($cfg['backup']){
+			$this->backup($cfg);
+		}
 
 
 
