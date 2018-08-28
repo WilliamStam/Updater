@@ -65,7 +65,7 @@ class git extends \update\updater implements actorsInterface {
 
 
 		$this->_output(parent::H3,"Self Update");
-		echo $dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git";
+		$this->_output(parent::H3,$dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git");
 
 
 		if (is_file($dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git")){
