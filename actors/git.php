@@ -65,8 +65,9 @@ class git extends \update\updater implements actorsInterface {
 
 
 		$this->_output(parent::H3,"Self Update");
+		echo $dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git";
 
-		if (is_file($dir."Updater".DIRECTORY_SEPARATOR.".git")){
+		if (is_file($dir.DIRECTORY_SEPARATOR."Updater".DIRECTORY_SEPARATOR.".git")){
 			$this->_output(parent::EXEC,"SELF UPDATING",$this->_exec('git submodule update --recursive --remote',$dir));
 		} else {
 			$this->_output(parent::EXEC,"INIT",$this->_exec('git init',$dir));
